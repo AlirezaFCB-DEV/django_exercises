@@ -30,7 +30,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# For Activating Model You Need Use This Commands :
+#! 1. python manage.py makemigrations : This command creates a migration file that saves the model.
+#! 2. python manage.py migrate : Applying changes to the database
+
+
 INSTALLED_APPS = [
+    "blog",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
