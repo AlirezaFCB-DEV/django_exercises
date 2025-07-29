@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>polls/index.html</title>
   </head>
-  <body>
+  <body style="font-family: sans-serif">
     {% if latest_question_list %}
-    <ul>
+    <ul style="display: flex; gap: 8rem">
       {% for question in latest_question_list %}
-      <li>
-        <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+      <li
+        style="
+          background-color: red;
+          color: white;
+          padding: 1rem;
+          border-radius: 8px;
+          font-size: large;
+          font-weight: bold;
+        "
+      >
+        <a style="color: white" href="{% url 'polls:detail' question.id %}"
+          >{{ question.question_text }}</a
+        >
       </li>
       {% endfor %}
     </ul>
