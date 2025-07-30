@@ -3,8 +3,8 @@ from . import views
 
 app_name = "polls"
 urlpatterns = [
-    path("" , views.index , name="index"),
-    path("<int:pk>/" , views.detail , name="detail"),
-    path("<int:pk>/result/" , views.result , name="result"),
+    path("" , views.IndexView.as_view() , name="index"),
+    path("<int:pk>/" , views.Detail_View.as_view() , name="detail"),
+    path("<int:pk>/result/" , views.Result_View.as_view() , name="result"),
     path("<int:question_id>/vote/" , views.vote , name="vote"),
 ]
