@@ -1,17 +1,13 @@
+from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
 from .models import User
 
 
-def user_list(req):
+def show_users(req):
     users = User.objects()
-    output = ""
-
-    for user in users:
-        output += f"<p>{user.name} - {user.email} - {user.age}</p>"
-
-    return HttpResponse(output)
+    return render(req , "polls/user_list.html" , {"users" : users})
 
 
 def update_user(req):
