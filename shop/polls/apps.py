@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from mongoengine import connect
+import mongoengine
 
 
 class PollsConfig(AppConfig):
@@ -7,7 +7,7 @@ class PollsConfig(AppConfig):
     name = 'polls'
 
     def ready(self):
-        connect(
+        mongoengine.connect(
             db="polls_db",
             host="localhost",
             port = 27017
