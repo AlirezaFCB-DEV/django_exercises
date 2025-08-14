@@ -1,5 +1,5 @@
 from django.db import models
-# from geography.models import ZipCode
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -130,3 +130,32 @@ class Ox(models.Model):
     class Meta:
         ordering = ["horn_length"]
         verbose_name_plural = "oxen"
+
+
+class Blog(models.Model) :
+    name = models.CharField(max_length=100)
+    # tagline = models.TextField()
+    slug = models.TextField()
+    
+    #! overwriting predefined methods
+    
+    # def save(self , **kwargs):
+    #     do_something()
+    #     super().save(**kwargs) 
+    #     do_something_else()
+    
+    #! prevent saving:
+    # def save(self , **kwargs) :
+    #     if self.name == "Devil" :
+    #         return
+    #     else :
+    #         super().save(**kwargs)
+
+    #! Specifying which fields to save
+    def save(self , **kwargs) :
+        self.slug = slugify(self.name) 
+        if (
+            update_fields := kwargs.get("update_fields")
+        ) is not None and "name" in update_fields:
+            kwargs["update_fields"] = {"slug"}.union("update_fields")
+        super().save(**kwargs )
