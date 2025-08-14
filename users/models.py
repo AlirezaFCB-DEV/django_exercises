@@ -104,3 +104,11 @@ class Restaurant2(models.Model):
     # zip_code = models.ForeignKey(ZipCode , on_delete=models.SET_NULL , blank=True , null=True)
     zip_code = models.ForeignKey(
         "geography.ZipCode", on_delete=models.SET_NULL, null=True, blank=True)
+
+
+class Ox(models.Model):
+    horn_length = models.IntegerField()
+
+    class Meta:
+        ordering = ["horn_length"]
+        verbose_name_plural = "oxen"
