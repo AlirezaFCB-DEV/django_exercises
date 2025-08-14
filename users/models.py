@@ -1,5 +1,5 @@
 from django.db import models
-from geography.models import ZipCode
+# from geography.models import ZipCode
 
 # Create your models here.
 
@@ -100,5 +100,7 @@ class Restaurant (models.Model):
     serves_pizza = models.BooleanField(default=False)
 
 
-class Restaurant2(models.Model) :
-    zip_code = models.ForeignKey(ZipCode , on_delete=models.SET_NULL , blank=True , null=True)
+class Restaurant2(models.Model):
+    # zip_code = models.ForeignKey(ZipCode , on_delete=models.SET_NULL , blank=True , null=True)
+    zip_code = models.ForeignKey(
+        "geography.ZipCode", on_delete=models.SET_NULL, null=True, blank=True)
