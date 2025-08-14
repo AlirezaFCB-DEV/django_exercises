@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Person, Musician, Album, Runner, Manufacturer, Car, Topping, Pizza
+from .models import Person, Musician, Album, Runner, Manufacturer, Car, Topping, Pizza 
 # Register your models here.
 
 app_models = [
