@@ -16,22 +16,22 @@ class Person(models.Model):
     last_name = models.CharField(max_length=50)
     shirt_size = models.CharField(max_length=2, choices=SHIRT_SIZES)
     birth_date = models.DateField(default='2000-01-01')
-    
-    def baby_boomer_status(self) :
+
+    def baby_boomer_status(self):
         """ Returns the person's baby-boomer status. """
         import datetime
-        
-        if self.birth_date < datetime.date(1945 , 8 , 1):
+
+        if self.birth_date < datetime.date(1945, 8, 1):
             return "Pre-boomer"
-        elif self.birth_date < datetime.date(1965 , 1 , 1):
+        elif self.birth_date < datetime.date(1965, 1, 1):
             return "Baby boomer"
-        else :
+        else:
             return "Post boomer"
-        
+
     @property
     def full_name(self):
         """Returns person's full name."""
-        
+
         return f"{self.first_name} {self.last_name}"
 
     def __str__(self):
@@ -132,18 +132,18 @@ class Ox(models.Model):
         verbose_name_plural = "oxen"
 
 
-class Blog(models.Model) :
+class Blog(models.Model):
     name = models.CharField(max_length=100)
     # tagline = models.TextField()
     slug = models.TextField()
-    
+
     #! overwriting predefined methods
-    
+
     # def save(self , **kwargs):
     #     do_something()
-    #     super().save(**kwargs) 
+    #     super().save(**kwargs)
     #     do_something_else()
-    
+
     #! prevent saving:
     # def save(self , **kwargs) :
     #     if self.name == "Devil" :
@@ -152,10 +152,24 @@ class Blog(models.Model) :
     #         super().save(**kwargs)
 
     #! Specifying which fields to save
-    def save(self , **kwargs) :
-        self.slug = slugify(self.name) 
+    def save(self, **kwargs):
+        self.slug = slugify(self.name)
         if (
             update_fields := kwargs.get("update_fields")
         ) is not None and "name" in update_fields:
             kwargs["update_fields"] = {"slug"}.union("update_fields")
-        super().save(**kwargs )
+        super().save(**kwargs)
+
+#! Model Inheritance
+#?Abstract base classes
+
+class Common_Info(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+
+    class Meta:
+        abstract = True
+
+
+class Student(Common_Info) :
+    home_group = models.CharField(max_length=5)
