@@ -161,7 +161,8 @@ class Blog(models.Model):
         super().save(**kwargs)
 
 #! Model Inheritance
-#?Abstract base classes
+#? Meta inheritance
+
 
 class Common_Info(models.Model):
     name = models.CharField(max_length=100)
@@ -169,7 +170,11 @@ class Common_Info(models.Model):
 
     class Meta:
         abstract = True
+        ordering= ["name"]
 
 
 class Student(Common_Info) :
     home_group = models.CharField(max_length=5)
+    
+    class Meta (Common_Info.Meta):
+        db_table = "student_info"     
