@@ -161,20 +161,10 @@ class Blog(models.Model):
         super().save(**kwargs)
 
 #! Model Inheritance
-#? Meta inheritance
+#? multi table inheritance
 
-
-class Common_Info(models.Model):
+class Place (models.Model) :
     name = models.CharField(max_length=100)
-    age = models.IntegerField()
-
-    class Meta:
-        abstract = True
-        ordering= ["name"]
-
-
-class Student(Common_Info) :
-    home_group = models.CharField(max_length=5)
     
-    class Meta (Common_Info.Meta):
-        db_table = "student_info"     
+class Restaurant(Place) :
+    serves_pizza = models.BooleanField(default=False)
