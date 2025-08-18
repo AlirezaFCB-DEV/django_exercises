@@ -161,10 +161,14 @@ class Blog(models.Model):
         super().save(**kwargs)
 
 #! Model Inheritance
-#? multi table inheritance
+#? Proxy Models 
 
-class Place (models.Model) :
-    name = models.CharField(max_length=100)
-    
-class Restaurant(Place) :
-    serves_pizza = models.BooleanField(default=False)
+class number1(models.Model) :
+    pass
+
+class number2 (number1) :
+    class Meta : 
+        proxy = True
+        
+    def do_something() :
+        pass
