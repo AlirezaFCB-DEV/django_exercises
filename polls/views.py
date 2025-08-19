@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
+import asyncio
 
 from users.models import Person
 
@@ -27,3 +28,8 @@ def persons_details_view(req, person_f_name):
 
 def my_404_view (req) :
     return render(req , "polls/404.html" , status=404)
+
+async def my_async_view (req) :
+    await asyncio.sleep(10)
+    return HttpResponse("Hello World, This is a async view in django")
+    
