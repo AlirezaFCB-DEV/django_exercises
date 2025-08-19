@@ -24,3 +24,6 @@ def persons_details_view(req, person_f_name):
         raise Http404("User Not Found!!!")
 
     return render(req, "polls/persons_details.html", {"person": person})
+
+def my_404_view (req) :
+    return render(req , "polls/404.html" , status=404)
