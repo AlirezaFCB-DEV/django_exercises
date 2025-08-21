@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, Http404
 import asyncio
 
 from users.models import Person
+from .models import Article
 
 # Create your views here.
 
@@ -26,10 +27,17 @@ def persons_details_view(req, person_f_name):
 
     return render(req, "polls/persons_details.html", {"person": person})
 
-def my_404_view (req) :
-    return render(req , "polls/404.html" , status=404)
 
-async def my_async_view (req) :
+def my_404_view(req):
+    return render(req, "polls/404.html", status=404)
+
+
+async def my_async_view(req):
     await asyncio.sleep(10)
     return HttpResponse("Hello World, This is a async view in django")
-    
+
+
+def article_detail(req, article_id):
+    Article = get_object_or_404(Article, pk=article_id)
+
+    return render(req, "polls/articles.html", {"article": Article})
