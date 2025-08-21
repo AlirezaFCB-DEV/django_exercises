@@ -26,6 +26,6 @@ urlpatterns = [
     path("async/", my_async_view, name="async_view"),
     path("articles/<int:article_id>/", article_detail, name="article_detail"),
     # path("articles/year/<yyyy:year>/", article_year)
-    re_path(r"^articles/(?P<year>[0-9]{4})/$", article_year)
+    re_path(r"^articles/([0-9]{4})/$", article_year)
 
 ]
