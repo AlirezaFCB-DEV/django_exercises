@@ -43,6 +43,6 @@ def article_detail(req, article_id):
     return render(req, "polls/articles.html", {"article": Article})
 
 
-def article_year(req, year):
+def article_year(req, year=2025):
     article = get_object_or_404(Article, created__year=year)
     return HttpResponse(f"{article.title} - {article.created}")
