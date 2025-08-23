@@ -18,3 +18,4 @@ def post_detail(req, post_url):
 
     except Post.DoesNotExist:
         return render(req, "blog/404.html",  status=404)
+
