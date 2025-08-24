@@ -5,7 +5,7 @@ from django.db import models
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
-    post_url = models.SlugField(default=title)
+    post_url = models.SlugField(allow_unicode=True)
     content = models.TextField(max_length=800)
     published_date = models.DateTimeField()
 

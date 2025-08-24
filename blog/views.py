@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.text import slugify
+
+from datetime import datetime
 
 from .models import Post
 from .forms import Add_Post
@@ -22,14 +25,20 @@ def post_detail(req, post_url):
 
 
 def add_post(req):
-    if req.method == "POST" :
+    if req.method == "POST":
         form = Add_Post(req.POST)
-        if form.is_valid() :
-            title = form.cleaned_data["title"]
-            post_url = form.cleaned_data["post"]
-            content = form.cleaned_data["content"]
-            
-    else :
+        if form.is_valid():
+
+            data = form.cleaned_data
+            slug_str = data["post_url"] or slugify(
+                data["title"]),
+
+            Post.objects.create(title=data["title"],
+                                post_url= slug_str,content=data["content"],
+                                published_date=datetime.now())
+
+            return redirect("post_list")
+    else:
         form = Add_Post()
-        
-    return render(req , "blog/add_post_form.html")
+
+    return render(req, "blog/add_post_form.html", {"form": form})
