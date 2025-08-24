@@ -13,3 +13,11 @@ class Add_Post(forms.Form):
         if "@" in data:
             raise forms.ValidationError("the title is not supported @ ")
         return data
+
+    def clean(self):
+        cleaned_data = super().clean()
+        post_url = cleaned_data.get("post_url")
+        title = cleaned_data.get("title")
+        if post_url == title:
+            raise forms.ValidationError("post url incorrect")
+        
