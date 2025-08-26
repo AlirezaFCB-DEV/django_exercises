@@ -23,8 +23,14 @@ class Add_Post(forms.Form):
             raise forms.ValidationError("post url incorrect")
         return post_url, title
 
-class Profile_Form(forms.ModelForm) :
+class Profile_Form(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ["first_name" , "last_name" , "email"]
-        
+        fields = ["first_name", "last_name", "email"]
+
+    def clean_first_name(self):
+        data = self.cleaned_data["first_name"]
+        if "@" in data:
+            raise forms.ValidationError("first name is not valid!!")
+        return data
+

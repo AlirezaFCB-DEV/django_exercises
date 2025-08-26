@@ -26,7 +26,7 @@ def post_detail(req, post_url):
 
 def add_post(req):
     if req.method == "POST":
-        form = Add_Post(req.POST)
+        form = Add_Post(req.POST)  # ! Bound
         if form.is_valid():
 
             data = form.cleaned_data
@@ -34,11 +34,11 @@ def add_post(req):
                 data["title"]),
 
             Post.objects.create(title=data["title"],
-                                post_url= slug_str,content=data["content"],
+                                post_url=slug_str, content=data["content"],
                                 published_date=datetime.now())
 
             return redirect("post_list")
     else:
-        form = Add_Post()
+        form = Add_Post()  # ! Unbound (free form)
 
     return render(req, "blog/add_post_form.html", {"form": form})
