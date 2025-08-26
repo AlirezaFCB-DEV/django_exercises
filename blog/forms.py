@@ -1,4 +1,5 @@
 from django import forms
+from .models import Profile
 
 
 class Add_Post(forms.Form):
@@ -20,4 +21,10 @@ class Add_Post(forms.Form):
         title = cleaned_data.get("title")
         if post_url == title:
             raise forms.ValidationError("post url incorrect")
+        return post_url, title
+
+class Profile_Form(forms.ModelForm) :
+    class Meta:
+        model = Profile
+        fields = ["first_name" , "last_name" , "email"]
         
