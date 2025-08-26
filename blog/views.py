@@ -28,7 +28,8 @@ def add_post(req):
     if req.method == "POST":
         form = Add_Post(req.POST)  # ! Bound
         if form.is_valid():
-
+            print(form.data["title"]) #! raw data
+            print(form.cleaned_data["title"]) #! valid data then clean
             data = form.cleaned_data
             slug_str = data["post_url"] or slugify(
                 data["title"]),
