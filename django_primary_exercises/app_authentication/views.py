@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import Add_User, Login_User
 
@@ -39,3 +40,12 @@ def login_user(req):
         form = Login_User()
 
     return render(req, "auth/login.html", {"form": form})
+
+
+@login_required
+def dashboard(req, username):
+    try:
+        user_profile = User.objects.get(username=username)
+        return render(req, "auth/dashboard.html", {"user": user_profile})
+    except User.DoesNotExist:
+        return redirect("app_authentication:login_user")
