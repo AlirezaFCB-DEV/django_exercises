@@ -14,9 +14,13 @@ class Email_BackEnd(BaseBackend):
         password = credentials.get("password")
         if not email or not password:
             return None
+
         try:
             user = User.objects.get(Q(email__iexact=email))
         except User.DoesNotExist:
+            return None
+
+        if not user.is_active:
             return None
 
         return user if user.check_password(password) and self.user_can_authenticate(user) else None
