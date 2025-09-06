@@ -2,6 +2,8 @@ from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.models import AnonymousUser
+
 
 User = get_user_model()
 
@@ -33,3 +35,8 @@ class Email_BackEnd(BaseBackend):
             return True
 
         return False
+
+
+anon = AnonymousUser()
+print(anon.is_authenticated)  # False
+print(anon.has_perm("app.add_model"))  # False
