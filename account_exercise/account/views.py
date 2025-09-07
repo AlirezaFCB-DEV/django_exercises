@@ -12,3 +12,13 @@ def profile_view(req):
         "username": req.user.username,
         "email": req.user.email
     })
+
+
+def dashboard_view(req):
+    if not req.user.is_authenticated:
+        return JsonResponse({"error": "Login Required"}, status=401)
+
+    if not req.user.is_active:
+        return JsonResponse({"error": "Your account is disabled"}, status=403)
+
+    return JsonResponse({"message": "Welcome to your dashboard"})
