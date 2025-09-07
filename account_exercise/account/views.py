@@ -41,3 +41,10 @@ def user_detail(req, user_id):
         return JsonResponse({"error": "Permission denied"}, status=403)
 
     return JsonResponse({"username": user.username, "email": user.email})
+
+
+def report_view(req):
+    if not req.user.has_perm("acount.can_view_reports"):
+        return JsonResponse({"error": "Permission denied"}, status=403)
+
+    return JsonResponse({"message": "Here is report!"})
