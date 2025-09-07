@@ -3,15 +3,21 @@ from django.http import JsonResponse, Http404
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user_model
 
+from .models import Profile
 # Create your views here.
 
 
 def profile_view(req):
     if isinstance(req.user, AnonymousUser):
         return JsonResponse({"error": "You Must Login First!!"}, status=401)
+
+    profile = Profile.objects.get(user=req.user)
+
     return JsonResponse({
         "username": req.user.username,
-        "email": req.user.email
+        "email": req.user.email,
+        "bio": profile.bio,
+        "age": profile.age
     })
 
 
