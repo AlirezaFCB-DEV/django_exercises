@@ -28,3 +28,13 @@ class Request_Timing_Middleware:
             return JsonResponse({"error": "auth required"}, status=401)
         #! none means continue processing (other middleware is also checked)
         return None
+    
+    def process_exception(self , req , exception):
+        #! log
+        import logging , traceback
+        
+        logging.exception("Unhandled exception in view")
+        
+        from django.http import JsonResponse
+        
+        return JsonResponse({"error" : "internal server error"} , status=500)
