@@ -9,6 +9,9 @@ class Request_Timing_Middleware:
     def __call__(self, req):
         #! This method for all req callable.
 
+        if not self.enabled:
+            return self.get_response(req)
+
         start = time.time()  # ? Start Time
         # ? Resume Process To Rest Of Middlewares And In End View
         response = self.get_response(req)
